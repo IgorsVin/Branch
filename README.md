@@ -1,13 +1,13 @@
 # Branch
 None</br>
-Āris Šeit bija✅
-Igors Šeit bija✅
-Annija šeit bija❎
-Enija šeit bija❎
+Āris Šeit bija✅</br>
+Igors Šeit bija✅</br>
+Annija šeit bija❎</br>
+Enija šeit bija❎</br
 
-Ir izveidots algoritms ar katri.
-Ir ļoti simple login, kā bija iepriekš
-Ir ļoti simple main, kā bija iepriekš
+Ir izveidots algoritms ar katri.</br>
+Ir ļoti simple login, kā bija iepriekš</br>
+Ir ļoti simple main, kā bija iepriekš</br>
 
 Uzdevumi:
 1. Noteikt kādi dati tiks ievadīti order
