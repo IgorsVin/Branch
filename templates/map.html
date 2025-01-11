@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Map</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    <style>
+        #map { width: 100%; height: 500px; }
+        #info { position: fixed; top: 10px; left: 10px; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 10px; border-radius: 5px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center">Route Map</h1>
+    <div id="map"></div>
+    
+    <div id="info">
+        <strong>Route Information:</strong><br>
+        Distance: <span id="distance">...</span><br>
+        Duration: <span id="duration">...</span><br>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
+    <script>
+        mapboxgl.accessToken = '{{ access_token }}';
+        
+        const routeGeoJSON = JSON.parse('{{ route|tojson|safe }}');
+        const userCoordinates = JSON.parse('{{ user_coordinates|tojson|safe }}');
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: userCoordinates[0],
+            zoom: 7
+        });
+
+        userCoordinates.forEach(function(coord) {
+            new mapboxgl.Marker()
+                .setLngLat(coord)
+                .addTo(map);
+        });
+
+        map.on('load', function() {
+            map.addSource('route', {
+                type: 'geojson',
+                data: routeGeoJSON
+            });
+            map.addLayer({
+                id: 'route',
+                type: 'line',
+                source: 'route',
+                paint: {
+                    'line-color': '#007cbf',
+                    'line-width': 5
+                }
+            });
+
+            const coordinates = userCoordinates.map(coord => coord.join(',')).join(';');
+            fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${coordinates}?access_token={{ access_token }}&geometries=geojson`)
+                .then(response => response.json())
+                .then(data => {
+                    const route = data.routes[0];
+                    const distance = route.distance;
+                    const duration = route.duration;
+                    
+                    // attālums un laiks
+                    const distanceKm = (distance / 1000).toFixed(2);
+                    const durationHours = Math.floor(duration / 3600);
+                    const durationMinutes = Math.floor((duration % 3600) / 60);
+                    document.getElementById('distance').textContent = `${distanceKm} km`;
+                    document.getElementById('duration').textContent = `${durationHours}h ${durationMinutes}m`;
+                })
+                .catch(err => console.error('Error fetching directions:', err));
+        });
+    </script>
+</body>
+</html>
