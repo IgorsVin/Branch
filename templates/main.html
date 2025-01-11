@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="main-container">
+        <div class="welcome-section">
+            <h2>Welcome, {{ username }}!</h2>
+            <a href="order">
+                <button class="btn btn-primary">Create New Order</button>
+            </a>
+        </div>
+
+        <div class="orders-section">
+            <h3>Previous Orders</h3>
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Client ID</th>
+                        <th>Product ID</th>
+                        <th>Priority</th>
+                        <th>Order Date</th>
+                        <th>Delivery Date</th>
+                        <th>Delivery Status</th>
+                        <th>Starting Point</th>
+                        <th>Endpoint</th>
+                        <th>Stops</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <!-- <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order['ID'] }}</td>
+                        <td>{{ order['KLienta_ID'] }}</td>
+                        <td>{{ order['Preces_ID'] }}</td>
+                        <td>{{ order['Prioritate'] }}</td>
+                        <td>{{ order['Pasutijuma_datums'] }}</td>
+                        <td>{{ order['Piegades_datums'] }}</td>
+                        <td>{{ order['Piegades_statuss'] }}</td>
+                        <td>{{ order['starting_point'] }}</td>
+                        <td>{{ order['endpoint'] }}</td>
+                        <td>{{ order['stops'] }}</td>
+                        <td>
+                            <a href="{{ url_for('location', starting_point=order['starting_point'], destination=order['endpoint']) }}">
+                                <button class="btn btn-view">View</button>
+                            </a>
+
+                                Dzēšanas forma 
+                            <form action="{{ url_for('delete_order', order_id=order['ID']) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>  -->
+            </table>
+        </div>
+    </div>
+    <button class="exit-button" onclick="window.location.href='/';">Exit</button>
+</body>
+</html>
