@@ -1,15 +1,31 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 import requests
+import sqlite3
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import itertools
 
 app = Flask(__name__)
 
-MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiaWdvcnN2aW4iLCJhIjoiY20zZXIxMHpwMGhrbTJqcXk5Y3NtZHBqdyJ9.LVhrk96TcH0JyBMZJavc9w"  # Replace with your Mapbox access token
+MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiaWdvcnN2aW4iLCJhIjoiY20zZXIxMHpwMGhrbTJqcXk5Y3NtZHBqdyJ9.LVhrk96TcH0JyBMZJavc9w"
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        return redirect(url_for('main', username=username))
+    return render_template('login.html')
+
+@app.route('/main')
+def main():
+    username = request.args.get('username')
+    return render_template('main.html', username=username)
+    
+@app.route('/order')
 def order_page():
     return render_template('order.html')
 
+#Algorithm
 @app.route('/calculate-route', methods=['POST'])
 def calculate_route():
     start_location = request.form['start_location']
