@@ -3,7 +3,7 @@ None</br>
 Āris Šeit bija✅</br>
 Igors Šeit bija✅</br>
 Annija šeit bija❎</br>
-Enija šeit bija❎</br
+Enija šeit bija❎</br>
 
 Ir izveidots algoritms ar katri.</br>
 Ir ļoti simple login, kā bija iepriekš</br>
