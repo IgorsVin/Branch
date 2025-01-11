@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px;
+            margin: 0;
+            background-color: #f1f1f1;
+            font-family: Arial, sans-serif;
+        }
+
+        .form {
+            width: 300px;
+            padding: 24px;
+            border: 2px solid #e0e0e0;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 20px;
+        }
+
+        label {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 8px;
+            margin-top: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            color: black;
+            text-align: left;
+            width: 100%;
+        }
+
+        .input {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            outline: none;
+            font-size: 16px;
+            color: black;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .input:focus {
+            border-color: green;
+        }
+
+        .input::placeholder {
+            color: #e0e0e0;
+        }
+
+        button {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            background-color: green;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            margin-top: 12px;
+            border-radius: 20px;
+        }
+
+        button:hover {
+            background-color: rgb(2, 112, 2);
+        }
+    </style>
+</head>
+<body>
+    <form class="form" method="POST" action="/">
+        <h2>Login</h2>
+        <label class="label">
+            <span class="label-text">Username</span>
+            <input class="input" type="text" name="username" spellcheck="false" placeholder="Enter your username:">
+        </label>
+        <label class="label">
+            <span class="label-text">Password</span>
+            <input class="input" type="password" name="password" spellcheck="false" placeholder="Enter your password:">
+        </label>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
