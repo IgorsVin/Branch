@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page</title>
+    <style>
+        .order-input-group {
+            margin-bottom: 15px;
+        }
+        .order-input-group label, .order-input-group input {
+            display: block;
+            margin: 5px 0;
+        }
+        .remove-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Orders</h1>
+    <form action="{{ url_for('calculate_route') }}" method="POST">
+        <div>
+            <label for="start_location">Starting Location:</label>
+            <input type="text" id="start_location" name="start_location" required>
+        </div>
+        <div id="orders">
+            <div class="order-input-group">
+                <label for="order_id[]">Order ID:</label>
+                <input type="text" name="order_id" required>
+
+                <label for="courier_id[]">Courier ID:</label>
+                <input type="text" name="courier_id" required>
+
+                <label for="order_date[]">Order Date:</label>
+                <input type="date" name="order_date" required>
+
+                <label for="locations[]">Order Location:</label>
+                <input type="text" name="locations" required>
+
+                <button type="button" class="remove-button" onclick="removeOrder(this)">Remove Order</button>
+            </div>
+        </div>
+        <button type="button" onclick="addOrder()">Add Order</button>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function addOrder() {
+            const orderDiv = document.createElement('div');
+            orderDiv.classList.add('order-input-group');
+            orderDiv.innerHTML = `
+                <label for="order_id[]">Order ID:</label>
+                <input type="text" name="order_id" required>
+
+                <label for="courier_id[]">Courier ID:</label>
+                <input type="text" name="courier_id" required>
+
+                <label for="order_date[]">Order Date:</label>
+                <input type="date" name="order_date" required>
+
+                <label for="locations[]">Order Location:</label>
+                <input type="text" name="locations" required>
+
+                <button type="button" class="remove-button" onclick="removeOrder(this)">Remove Order</button>
+            `;
+            document.getElementById('orders').appendChild(orderDiv);
+        }
+
+        function removeOrder(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+</html>
