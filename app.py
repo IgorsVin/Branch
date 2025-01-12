@@ -50,12 +50,14 @@ def calculate_route():
             best_route = route
 
     optimal_coordinates = [user_coordinates[i] for i in best_route]
-    route_geojson = get_route(optimal_coordinates)
+    route_geojson, route_distance, route_duration = get_route(optimal_coordinates)
 
     return render_template(
         'map.html',
         route=route_geojson,
         user_coordinates=optimal_coordinates,
+        distance = route_distance,
+        duration = route_duration,
         access_token=MAPBOX_ACCESS_TOKEN
     )
 
@@ -114,7 +116,10 @@ def get_route(coordinates):
         }
     )
     data = response.json()
-    return data['routes'][0]['geometry']
+    route_geometry = data['routes'][0]['geometry']
+    route_distance = data['routes'][0]['distance'] / 1000
+    route_duration = data['routes'][0]['duration'] / 60 
+    return route_geometry, route_distance, route_duration
 
 if __name__ == '__main__':
     app.run(debug=True)
